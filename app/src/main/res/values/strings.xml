@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">MVP</string>
+    <string name="loading_progres">Загрузка</string>
+</resources>
