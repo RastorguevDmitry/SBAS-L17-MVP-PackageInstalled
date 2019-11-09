@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:weightSum="10"
         android:padding="@dimen/padding_small">
 
         <ImageView
@@ -25,6 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
+            android:layout_weight="10"
             android:orientation="vertical">
 
             <TextView
@@ -39,9 +41,13 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                 tools:text="Сбербанк" />
-
-
         </LinearLayout>
+
+        <ImageView
+            android:id="@+id/system_icon_image_view"
+            android:layout_width="@dimen/icon_size"
+            android:layout_height="@dimen/icon_size"
+            tools:src="@drawable/is_system_package_24dp" />
 
     </LinearLayout>
 

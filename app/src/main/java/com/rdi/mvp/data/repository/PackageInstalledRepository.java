@@ -39,7 +39,7 @@ public class PackageInstalledRepository {
         for (String packageName : getInstallPackages(isSystem)) {
             getAppSize(packageName);
             InstalledPackageModel installedPackageModel = new InstalledPackageModel(
-                    getAppName(packageName), packageName, getAppIcon(packageName));
+                    getAppName(packageName), packageName, getAppIcon(packageName), getIsSystem(packageName));
 
             installedPackageModels.add(installedPackageModel);
         }
@@ -75,24 +75,31 @@ public class PackageInstalledRepository {
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-
         return appName;
+    }
 
+
+    public boolean getIsSystem(@NonNull String packageName) {
+        Boolean isSystem = false;
+        ApplicationInfo applicationInfo;
+        try {
+            applicationInfo = mPackageManager.getApplicationInfo(packageName, 0);
+            isSystem = (applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return isSystem;
     }
 
     private Drawable getAppIcon(@NonNull String packageName) {
         Drawable drawable;
-
         try {
             drawable = mPackageManager.getApplicationIcon(packageName);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
             drawable = ContextCompat.getDrawable(mContext, R.mipmap.ic_launcher);
         }
-
         return drawable;
-
-
     }
 
 
@@ -106,6 +113,10 @@ public class PackageInstalledRepository {
         return 0;
     }
 
+
+    public interface OnLoadingFinishListener {
+        void onFinish(List<InstalledPackageModel> packageModels);
+    }
 
     private class LoadingPackagesAsyncTask extends AsyncTask<Boolean, Void, List<InstalledPackageModel>> {
 
@@ -126,9 +137,5 @@ public class PackageInstalledRepository {
         protected List<InstalledPackageModel> doInBackground(Boolean... booleans) {
             return getData(booleans[0]);
         }
-    }
-
-    public interface OnLoadingFinishListener {
-        void onFinish(List<InstalledPackageModel> packageModels);
     }
 }

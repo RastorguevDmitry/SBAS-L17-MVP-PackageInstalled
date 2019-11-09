@@ -21,4 +21,6 @@ public interface IPackageInstalledView {
      * @param installedPackageModels список приложений.
      */
     void showData(List<InstalledPackageModel> installedPackageModels);
+
+
 }

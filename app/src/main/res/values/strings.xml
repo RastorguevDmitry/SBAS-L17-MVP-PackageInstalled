@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">MVP</string>
     <string name="loading_progres">Загрузка</string>
+    <string name="load_data">Загрузить данные</string>
+    <string name="show_system_package">Показывать системные приложения</string>
+
+    <string-array name="сhose_sort">
+        <item>А-Я сортировка</item>
+        <item>Я-А сортировка</item>
+    </string-array>
 </resources>

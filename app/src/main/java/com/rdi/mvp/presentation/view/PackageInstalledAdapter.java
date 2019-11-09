@@ -45,6 +45,7 @@ public class PackageInstalledAdapter extends RecyclerView.Adapter<PackageInstall
         private TextView mAppTextView;
         private TextView mPackageNameTextView;
         private ImageView mIconImageView;
+        private ImageView mSystemImageView;
 
 
         public PackageInstalledViewHolder(@NonNull View itemView) {
@@ -52,12 +53,21 @@ public class PackageInstalledAdapter extends RecyclerView.Adapter<PackageInstall
             mAppTextView = itemView.findViewById(R.id.app_name);
             mPackageNameTextView = itemView.findViewById(R.id.package_name);
             mIconImageView = itemView.findViewById(R.id.app_icon_image_view);
+            mSystemImageView = itemView.findViewById(R.id.system_icon_image_view);
         }
 
         void bindView(InstalledPackageModel installedPackageModel) {
             mAppTextView.setText(installedPackageModel.getAppName());
             mPackageNameTextView.setText(installedPackageModel.getAppPackageName());
             mIconImageView.setImageDrawable(installedPackageModel.getAppIcon());
+
+            if (installedPackageModel.getIsSystem()) {
+                mSystemImageView.setVisibility(View.VISIBLE);
+                mSystemImageView.setImageResource(R.drawable.is_system_package_24dp);
+            }
+            else mSystemImageView.setVisibility(View.GONE);
+
+
         }
     }
 

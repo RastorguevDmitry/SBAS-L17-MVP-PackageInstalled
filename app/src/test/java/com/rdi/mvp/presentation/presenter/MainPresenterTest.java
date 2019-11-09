@@ -52,7 +52,7 @@ public class MainPresenterTest {
         when(mPackageInstalledRepository.getData(anyBoolean())).thenReturn(createTestData());
 
         //Вызов тестируемого метода
-        mMainPresenter.loadDataSync();
+        mMainPresenter.loadDataSync(true);
 
         //Проверка, что презентер действительно вызывает методы представления
         verify(mPackageInstalledView).showProgress();
@@ -71,7 +71,7 @@ public class MainPresenterTest {
         when(mPackageInstalledRepository.getData(anyBoolean())).thenReturn(createTestData());
 
         //Вызов тестируемого метода
-        mMainPresenter.loadDataSync();
+        mMainPresenter.loadDataSync(true);
 
         InOrder inOrder = Mockito.inOrder(mPackageInstalledView);
 
@@ -106,7 +106,7 @@ public class MainPresenterTest {
             }
         }).when(mPackageInstalledRepository).loadDataAsync(anyBoolean(), Mockito.any(PackageInstalledRepository.OnLoadingFinishListener.class));
 
-        mMainPresenter.loadDataAsync();
+        mMainPresenter.loadDataAsync(true);
 
         //Далее просто проверяем, что все будет вызвано в нужном порядке.
         InOrder inOrder = Mockito.inOrder(mPackageInstalledView);
@@ -126,8 +126,8 @@ public class MainPresenterTest {
     public void testDetachView() {
         mMainPresenter.detachView();
 
-        mMainPresenter.loadDataAsync();
-        mMainPresenter.loadDataSync();
+        mMainPresenter.loadDataAsync(true);
+        mMainPresenter.loadDataSync(true);
 
         verifyNoMoreInteractions(mPackageInstalledView);
     }
@@ -136,10 +136,33 @@ public class MainPresenterTest {
         List<InstalledPackageModel> testData = new ArrayList<>();
 
         testData.add(new InstalledPackageModel("Sberbank",
-                "ru.sberbankmobile", null));
+                "ru.sberbankmobile", null, true));
         testData.add(new InstalledPackageModel("Test", "TestPackage",
-                null));
+                null, true));
 
         return testData;
     }
+
+
+    private List<InstalledPackageModel> createTestDataForSorting() {
+        List<InstalledPackageModel> testData = new ArrayList<>();
+
+        testData.add(new InstalledPackageModel("1",
+                "1", null, true));
+        testData.add(new InstalledPackageModel("2",
+                "2", null, true));
+        testData.add(new InstalledPackageModel("3",
+                "3", null, true));
+        testData.add(new InstalledPackageModel("a",
+                "a", null, true));
+        testData.add(new InstalledPackageModel("b",
+                "b", null, true));
+        testData.add(new InstalledPackageModel("c",
+                "c", null, true));
+
+        return testData;
+    }
+
+
+
 }

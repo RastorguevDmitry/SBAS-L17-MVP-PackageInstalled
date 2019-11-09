@@ -4,9 +4,8 @@ import android.graphics.drawable.Drawable;
 
 import androidx.annotation.NonNull;
 
-import java.util.Objects;
 
-public class InstalledPackageModel {
+public class InstalledPackageModel implements Comparable<InstalledPackageModel> {
 
     private String mAppName;
 
@@ -14,10 +13,14 @@ public class InstalledPackageModel {
 
     private Drawable mAppIcon;
 
-    public InstalledPackageModel(@NonNull String appName, @NonNull String appPackageName, @NonNull Drawable appIcon) {
+    private boolean mIsSystem;
+
+
+    public InstalledPackageModel(@NonNull String appName, @NonNull String appPackageName, @NonNull Drawable appIcon, @NonNull boolean isSystem) {
         mAppName = appName;
         mAppPackageName = appPackageName;
         mAppIcon = appIcon;
+        mIsSystem = isSystem;
     }
 
     @NonNull
@@ -34,6 +37,11 @@ public class InstalledPackageModel {
     @NonNull
     public Drawable getAppIcon() {
         return mAppIcon;
+    }
+
+    @NonNull
+    public boolean getIsSystem() {
+        return mIsSystem;
     }
 
 
@@ -76,4 +84,8 @@ public class InstalledPackageModel {
     }
 
 
+    @Override
+    public int compareTo(InstalledPackageModel o) {
+        return this.mAppName.compareTo(o.getAppName());
+    }
 }
